@@ -1,4 +1,9 @@
+from django.http.response import JsonResponse
+import spotipy
 import subprocess
+import datetime
+
+from spotipy.oauth2 import SpotifyOAuth
 
 from django.conf import settings as conf_settings
 from django.core.mail import send_mail
@@ -34,15 +39,21 @@ from audit.models import AuditTrail
 from .models import Designation 
 from audit.utils import store_audit
 
+from .utils import get_current_playback, get_device, get_sp, get_playlist_tracks
+
 User = get_user_model()
 
 class HomeView(View):
     def get(self, request, *args, **kwargs):
         return redirect('dashboard:login')
 
-class DashboardView(CustomLoginRequiredMixin,  BaseMixin, TemplateView):
+class DashboardView(CustomLoginRequiredMixin, BaseMixin, TemplateView):
     template_name = 'dashboard/index.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['playlist_tracks'] = get_playlist_tracks()
+        return context
 
 
 # Git Pull View
@@ -239,3 +250,37 @@ class AuditTrailListView(CustomLoginRequiredMixin, SuperAdminRequiredMixin, List
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.order_by('-created_at')
+
+class PlayBackControlView(CustomLoginRequiredMixin, BaseMixin, View):
+    def get(self, request, *args, **kwargs):
+        current_track = get_current_playback()
+        device_id = current_track.device_id
+        if current_track:
+            if current_track.is_playing:
+                try: 
+                    get_sp().pause_playback(device_id=device_id)
+                except:
+                    return redirect(self.get_success_url())
+            else:
+                try: 
+                    get_sp().start_playback(device_id=device_id, context_uri=current_track.context_uri, offset={ 'uri':current_track.track_uri}, position_ms=current_track.progress)
+                except:
+                    return redirect(self.get_success_url())
+        return JsonResponse({'message':'success'}, safe=False)
+                
+    def get_success_url(self, *args, **kwargs):
+        return self.request.GET.get('url')
+
+
+class StartPlayBackView(CustomLoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        device = get_device()
+        if device:
+            try: 
+                get_sp().start_playback(device_id=device, context_uri=self.request.GET.get('context_uri'), offset={ 'uri':self.request.GET.get('track_uri')})
+            except:
+                return redirect(self.get_success_url())
+        return redirect(self.get_success_url())
+
+    def get_success_url(self, *args, **kwargs):
+        return reverse('dashboard:index')

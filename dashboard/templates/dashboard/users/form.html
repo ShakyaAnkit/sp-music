@@ -4,8 +4,22 @@
 
 {% block title %} User {% endblock %}
 
+{% block style %}
+<style>
+    form{
+        display:flex;
+        flex-direction: column;
+    }
+
+    form > button{
+        align-self: flex-end;
+    }
+
+</style>
+{% endblock style %}
+
 {% block content %}
-<div class="container-fluid page__container">
+{% comment %} <div class="container-fluid page__container">
     <div class="card card-form form-header-layout">
         <h1 style="padding: 27px !important;"> User </h1>
         <div class="row no-gutters" style="border-top: 1px solid #EFEFEF">
@@ -25,6 +39,36 @@
                     <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
                 </form>
             </div>
+        </div>
+    </div>
+</div> {% endcomment %}
+
+<div id="content-page" class="content-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="iq-card">
+                    <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                            <h4 class="card-title">Create User</h4>
+                        </div>
+                    </div>
+                    <div class="iq-card-body">
+                        <form method="post" action="" enctype="multipart/form-data" autocomplete="off">
+                            {% csrf_token %}
+                            {% for field in form %}
+                            <div class="form-group" >
+                                <label>{{ field.label }}{% if field.field.required %}* {% endif %}</label>
+                                {{ field }}
+                                <span style="color:red;">{{ field.errors|striptags|safe }}</span>
+                            </div>
+                            {% endfor %}    
+                            <button type="submit" class="btn btn-primary" style="text-align:right;"><i class="fa fa-check"></i> Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
         </div>
     </div>
 </div>

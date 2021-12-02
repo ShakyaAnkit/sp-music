@@ -1,4 +1,7 @@
+import spotipy
+from spotipy.oauth2 import SpotifyOAuth
 
+from django.conf import settings as conf_settings
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash, get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
@@ -8,6 +11,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import DeleteView
 
+from .utils import get_current_playback, get_device, get_sp, get_featured_tracks
 
 User = get_user_model()
 
@@ -50,6 +54,9 @@ class CustomLoginRequiredMixin(LoginRequiredMixin):
 class BaseMixin():
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
+        context['current_track'] = get_current_playback()
+        context['featured_tracks'] = get_featured_tracks()
+        print(get_device())
         return context
 
 class FormControlMixin:
@@ -60,7 +67,6 @@ class FormControlMixin:
                 'class': 'form-control'
             })
 
-
 class GroupRequiredMixin(object):
     group_required = None
 
@@ -68,3 +74,17 @@ class GroupRequiredMixin(object):
         if request.user.is_superuser or self.request.user.groups.filter(name__in=self.group_required).exists():
             return super().dispatch(request, *args, **kwargs)
         raise PermissionDenied
+
+# class SpotifyAuthentication:
+#     def get_spotify_sp(self):
+#         scope = "playlist-modify-public user-read-recently-played user-read-playback-state user-top-read app-remote-control user-modify-playback-state user-read-currently-playing user-read-playback-position playlist-read-collaborative streaming"
+            
+#         sp_auth=SpotifyOAuth(scope=scope, client_id=conf_settings.SPOTIFY_CLIENT_ID, client_secret=conf_settings.SPOTIFY_CLIENT_SECRET, redirect_uri='http://localhost:8000/dashboard/')
+
+#         url = sp_auth.get_authorize_url()
+
+#         # sp = spotipy.Spotify(auth_manager=sp_auth)
+
+#         auth_token=sp_auth.get_cached_token()
+
+#         sp = spotipy.Spotify(auth=auth_token['access_token'])

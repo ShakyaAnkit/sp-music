@@ -35,4 +35,8 @@ urlpatterns=[
         path('users/<int:pk>/status', views.UserStatusView.as_view(), name='users-status'),
         path('users/<int:pk>/password-reset', views.UserPasswordResetView.as_view(), name='users-password-reset'),
 
+        path('dashboard/control/playback', views.PlayBackControlView.as_view(), name='playback-control'),
+
+        path('dashboard/start-playback/', views.StartPlayBackView.as_view(), name='start-playback'),
+
 ]

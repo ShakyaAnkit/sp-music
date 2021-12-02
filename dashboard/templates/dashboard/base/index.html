@@ -1,359 +1,154 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{% block title %}{% endblock %}</title>
-
-    <!-- Prevent the demo from appearing in search engines -->
-    <meta name="robots" content="noindex">
-
-    <meta name="csrf-token" content="{{ csrf_token }}">
-
-    {% block meta %}
-    {% endblock %}
-
-    <!-- Simplebar -->
-    <link type="text/css" href="{% static 'dashboard/admin/assets/vendor/simplebar.min.css' %}" rel="stylesheet">
-
-    <!-- App CSS -->
-    <link type="text/css" href="{% static 'dashboard/admin/assets/css/app.css' %}" rel="stylesheet">
-    <link type="text/css" href="{% static 'dashboard/admin/assets/css/app.rtl.css' %}" rel="stylesheet">
-
-    <!-- Material Design Icons -->
-    <link type="text/css" href="{% static 'dashboard/admin/assets/css/vendor-material-icons.css' %}" rel="stylesheet">
-    <link type="text/css" href="{% static 'dashboard/admin/assets/css/vendor-material-icons.rtl.css' %}" rel="stylesheet">
-
-    <!-- Font Awesome FREE Icons -->
-    <link type="text/css" href="{% static 'dashboard/admin/assets/css/vendor-fontawesome-free.css' %}" rel="stylesheet">
-    <link type="text/css" href="{% static 'dashboard/admin/assets/css/vendor-fontawesome-free.rtl.css' %}" rel="stylesheet">
-
-    <!-- ion Range Slider -->
-    <link type="text/css" href="{% static 'dashboard/admin/assets/css/vendor-ion-rangeslider.css' %}" rel="stylesheet">
-    <link type="text/css" href="{% static 'dashboard/admin/assets/css/vendor-ion-rangeslider.rtl.css' %}" rel="stylesheet">
-
-    <!-- Toastr -->
-    <link type="text/css" href="{% static 'dashboard/admin/assets/vendor/toastr.min.css' %}" rel="stylesheet">
-
-    <!-- Flatpickr -->
-    <link type="text/css" href="{% static 'dashboard/admin/assets/css/vendor-flatpickr.css' %}" rel="stylesheet">
-    <link type="text/css" href="{% static 'dashboard/admin/assets/css/vendor-flatpickr.rtl.css' %}" rel="stylesheet">
-    <link type="text/css" href="{% static 'dashboard/admin/assets/css/vendor-flatpickr-airbnb.css' %}" rel="stylesheet">
-    <link type="text/css" href="{% static 'dashboard/admin/assets/css/vendor-flatpickr-airbnb.rtl.css' %}" rel="stylesheet">
-
-
-    <!-- Select2 -->
-    <link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css "
-        rel="stylesheet">
-    
-    <!-- Sweet Alert -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@8/dist/sweetalert2.min.css">
-
-
-    <!-- Datatables -->
-    <link rel="stylesheet" type="text/css" href=" {% static 'dashboard/admin/assets/css/datatables.min.css' %}"/>
-
-    <style>
-        .btn-success-space {
-            margin-right: 5px !important;
-        }
-        .btn-success{
-            background-color: #4BB543 !important;
-            color: white !important;
-            border-color: #4BB543 !important;
-        }
-        .badge-success{
-            background-color: #4BB543 !important;
-            color: white !important;
-        }
-        .btn-warning{
-            color: white !important;
-        }
-    </style>
-
-    <style>
-        [dir="ltr"] body.layout-default.swal2-shown.swal2-height-auto{
-            height: 100% !important;
-        }
-
-        .swal2-styled {
-            margin: .3125em !important;
-            padding: .625em 2em;
-            box-shadow: none;
-            font-weight: 500;
-        }
-    </style>
-    
-    <style>
-        table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:after {
-            opacity: 1;
-            top: 3px !important;
-        }
-        table.dataTable thead .sorting_asc:after{
-            right: 0.5em;
-            top: 3px;
-            content: "\2193";
-        }
-        table.dataTable thead .sorting:before{
-            top: 3px;
-        }
-        table.dataTable thead .sorting:after{
-            top: 3px;
-        }
-    </style>
-    
-    <style>
+   <!-- Required meta tags -->
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <title>{% block title %}{% endblock title %}</title>
+   <!-- Favicon -->
+   <link rel="shortcut icon" href="images/favicon.ico" />
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="{% static 'dashboard/assets/css/bootstrap.min.css' %}">
+   <!-- Typography CSS -->
+   <link rel="stylesheet" href="{% static 'dashboard/assets/css/typography.css' %}">
+   <!-- Style CSS -->
+   <link rel="stylesheet" href="{% static 'dashboard/assets/css/style.css' %}">
+   <!-- Responsive CSS -->
+   <link rel="stylesheet" href="{% static 'dashboard/assets/css/responsive.css' %}">
+   <style>
         .select2-search__field{
             outline: none;
+            color: white;
         }
         .form-control select2 select2-hidden-accessible{
             outline: none !important;
         }
     
-        .select2-container--default .select2-selection--single {
-            background-color: #fff;
-            border: 1px solid #EEEEEE;
-            border-radius: 4px;
-            box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+        .select2-container--default .select2-selection--single, .select2-container--default .select2-selection--multiple {
+            background-color: transparent !important;
+            border: 1px solid var(--iq-dark-border-light);
+            border-radius: 5px;
+            color: white;
+            
     
         }   
         .select2-container *:focus {
-            outline: none;
-            border-color: #299aff;
+            outline: #FF4545;
+            border-color: #FF4545;
         }
+
+        .select2-container--default.select2-container--focus .select2-selection--multiple {
+            outline: none;
+            border: 1px solid #FF4545!important;
+         }
     </style>
-
-    {% block style %}
-    {% endblock %}
-
+   {% block style %}{% endblock style %}
 </head>
-
-<body class="layout-default">
-    <div class="preloader"></div>
-    <div class="mdk-drawer-layout js-mdk-drawer-layout" data-push data-responsive-width="992px" data-fullbleed>
-        <div class="mdk-drawer-layout__content">
-            <!-- Header Layout -->
-            <div class="mdk-header-layout js-mdk-header-layout" data-has-scrolling-region>
-                <!-- Header -->
-                <div id="header" class="mdk-header js-mdk-header m-0" data-fixed data-effects="waterfall" data-retarget-mouse-scroll="false">
-                    <div class="mdk-header__content">
-                        <div class="navbar navbar-expand-sm navbar-main navbar-light bg-white  pr-0" id="navbar" data-primary>
-                            <div class="container-fluid p-0">
-                                <!-- Navbar toggler -->
-                                <button class="navbar-toggler navbar-toggler-custom d-lg-none d-flex mr-navbar" type="button" data-toggle="sidebar">
-                                    <span class="material-icons">short_text</span>
-                                </button>
-                                <!-- Navbar Brand -->
-                                <a href="{% url 'dashboard:index' %}" class="navbar-brand flex">
-                                    <span>{% block subtitle %}{% endblock %}</span>
-                                </a>
-                                <!-- breadcrumb -->
-                                <div class="nav-breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">Home</a></li>
-                                        {% block breadcrumb %}
-                                        {% endblock %}
-                                    </ol>
-                                </div>
-                                <!-- breadcrumb -->
-                              
-                                <div class="dropdown">
-                                    <a href="#" data-toggle="dropdown" data-caret="false" class="dropdown-toggle navbar-toggler navbar-toggler-company border-left d-flex align-items-center ml-navbar">
-                                        <span class="rounded-circle">
-                                            <span class="material-icons">business</span>
-                                        </span>
-                                    </a>
-                                    <div id="company_menu" class="dropdown-menu dropdown-menu-right navbar-company-menu">
-                                        <div class="dropdown-item d-flex align-items-center py-2 navbar-company-info py-3">
-            
-                                            <span class="mr-3">
-                                                <img src="{% static 'dashboard/admin/assets/images/frontted-logo-blue.svg' %}" width="43" height="43" alt="avatar">
-                                            </span>
-                                            <span class="flex d-flex flex-column">
-                                                
-                                                <strong style="font-size: 1.125rem;"> {% if user.is_authenticated %}{{ user }}{% endif %}</strong>
-                                                {% comment %}
-                                                <small class="text-muted text-uppercase">8 Users</small>
-                                                {% endcomment %}
-                                            </span>
-            
-                                        </div>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item d-flex align-items-center py-2" href="{% url 'dashboard:change-password' %}">
-                                            <span class="material-icons mr-2">lock</span> Change Password
-                                        <a class="dropdown-item d-flex align-items-center py-2" href="{% url 'dashboard:logout' %}">
-                                            <span class="material-icons mr-2">exit_to_app</span> Logout
-                                        </a>
-                                       
-                                        
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- // END Header -->
-                <div class="mdk-header-layout__content mdk-header-layout__content--fullbleed mdk-header-layout__content--scrollable page">
-
-                    <!-- edit -->
-                    <div class="container-fluid">
-                        {% block content %}
-                        {% endblock %}
-                    </div>
-                </div>
-                <!-- // END header-layout__content -->
-            </div>
-            <!-- // END header-layout -->
-        </div>
-        <!-- // END drawer-layout__content -->
-        {% include 'dashboard/base/sidebar.html' %}
-       
-    </div>
-    <!-- // END drawer-layout -->
-   
-    {% block modal %}
-    {% endblock %}
-    
+<body>
+   <!-- loader Start -->
+   <div id="loading">
+      <div id="loading-center">
+      </div>
+   </div>
+   <!-- loader END -->
+   <!-- Wrapper Start -->
+   <div class="wrapper">
+      <!-- Sidebar  -->
+      {% include 'dashboard/base/sidebar.html' %}
+      <!-- TOP Nav Bar -->
+      {% include 'dashboard/base/header.html' %}
+      <!-- TOP Nav Bar END -->
+      <!-- Page Content  -->
+      {% block content %}{% endblock content %}
+   </div>
+   <!-- Wrapper END -->
+   <!-- Footer -->
+   {% include 'dashboard/base/footer.html' %}
+   <!-- Footer END -->
   
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+   <!-- Optional JavaScript -->
+   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+   <script src="{% static 'dashboard/assets/js/jquery.min.js' %}"></script>
+   <script src="{% static 'dashboard/assets/js/popper.min.js' %}"></script>
+   <script src="{% static 'dashboard/assets/js/bootstrap.min.js' %}"></script>
+   <!-- Appear JavaScript -->
+   <script src="{% static 'dashboard/assets/js/jquery.appear.js' %}"></script>
+   <!-- Countdown JavaScript -->
+   <script src="{% static 'dashboard/assets/js/countdown.min.js' %}"></script>
+   <!-- Counterup JavaScript -->
+   <script src="{% static 'dashboard/assets/js/waypoints.min.js' %}"></script>
+   <script src="{% static 'dashboard/assets/js/jquery.counterup.min.js' %}"></script>
+   <!-- Wow JavaScript -->
+   <script src="{% static 'dashboard/assets/js/wow.min.js' %}"></script>
+   <!-- Apexcharts JavaScript -->
+   <script src="{% static 'dashboard/assets/js/apexcharts.js' %}"></script>
+   <!-- Slick JavaScript -->
+   <script src="{% static 'dashboard/assets/js/slick.min.js' %}"></script>
+   <!-- Select2 JavaScript -->
+   <script src="{% static 'dashboard/assets/js/select2.js' %}"></script>
+   <script src="{% static 'dashboard/assets/js/select2.min.js' %}"></script>
+   <!-- Owl Carousel JavaScript -->
+   <script src="{% static 'dashboard/assets/js/owl.carousel.min.js' %}"></script>
+   <!-- Magnific Popup JavaScript -->
+   <script src="{% static 'dashboard/assets/js/jquery.magnific-popup.min.js' %}"></script>
+   <!-- Smooth Scrollbar JavaScript -->
+   <script src="{% static 'dashboard/assets/js/smooth-scrollbar.js' %}"></script>
+   <!-- lottie JavaScript -->
+   <script src="{% static 'dashboard/assets/js/lottie.js' %}"></script>
+   <!-- am core JavaScript -->
+   <script src="{% static 'dashboard/assets/js/core.js' %}"></script>
+   <!-- am charts JavaScript -->
+   <script src="{% static 'dashboard/assets/js/charts.js' %}"></script>
+   <!-- am animated JavaScript -->
+   <script src="{% static 'dashboard/assets/js/animated.js' %}"></script>
+   <!-- am kelly JavaScript -->
+   <script src="{% static 'dashboard/assets/js/kelly.js' %}"></script>
+   <!-- am maps JavaScript -->
+   <script src="{% static 'dashboard/assets/js/maps.js' %}"></script>
+   <!-- am worldLow JavaScript -->
+   <script src="{% static 'dashboard/assets/js/worldLow.js' %}"></script>
+   <!-- Raphael-min JavaScript -->
+   <script src="{% static 'dashboard/assets/js/raphael-min.js' %}"></script>
+   <!-- Morris JavaScript -->
+   <script src="{% static 'dashboard/assets/js/morris.js' %}"></script>
+   <!-- Morris min JavaScript -->
+   <script src="{% static 'dashboard/assets/js/morris.min.js' %}"></script>
+   <!-- Flatpicker Js -->
+   <script src="{% static 'dashboard/assets/js/flatpickr.js' %}"></script>
+   <!-- Style Customizer -->
+   <script src="{% static 'dashboard/assets/js/style-customizer.js' %}"></script>
+   <!-- Chart Custom JavaScript -->
+   <script src="{% static 'dashboard/assets/js/chart-custom.js' %}"></script>
+   <!-- music js -->
+   {% comment %} <script src="{% static 'dashboard/assets/js/music-player.js' %}"></script> {% endcomment %}
+   <!-- music-player js -->
+   {% comment %} <script src="{% static 'dashboard/assets/js/music-player-dashboard.js' %}"></script> {% endcomment %}
+   <!-- Custom JavaScript -->
+   <script src="{% static 'dashboard/assets/js/custom.js' %}"></script>
 
-    <!-- Bootstrap -->
-    <script src="{% static 'dashboard/admin/assets/vendor/popper.min.js' %}"></script>
-    <script src="{% static 'dashboard/admin/assets/vendor/bootstrap.min.js' %}"></script>
+   <!-- Custom JS-->
+   <script>
+      $('body').on('click', '.playback-button', function(){
+         if($(this).data('playing')){
+               $(this).removeClass('fa-pause-circle');
+               $(this).addClass('fa-play-circle')
+               $(this).data('playing', false)
+         }else{
+            $(this).removeClass('fa-play-circle');
+            $(this).addClass('fa-pause-circle')
+            $(this).data('playing', true)
+         }
+         console.log($(this).data('playing'));
+         $.get('{% url "dashboard:playback-control" %}?{{ request.get_full_path }}', function(data){
+            console.log(data)
+         })
+      })
 
-    <!-- Simplebar -->
-    <script src="{% static 'dashboard/admin/assets/vendor/simplebar.min.js' %}"></script>
-
-    <!-- DOM Factory -->
-    <script src="{% static 'dashboard/admin/assets/vendor/dom-factory.js' %}"></script>
-
-    <!-- MDK -->
-    <script src="{% static 'dashboard/admin/assets/vendor/material-design-kit.js' %}"></script>
-
-    <!-- Range Slider -->
-    <script src="{% static 'dashboard/admin/assets/vendor/ion.rangeSlider.min.js' %}"></script>
-    <script src="{% static 'dashboard/admin/assets/js/ion-rangeslider.js' %}"></script>
-
-    <!-- App -->
-    <script src="{% static 'dashboard/admin/assets/js/toggle-check-all.js' %}"></script>
-    <script src="{% static 'dashboard/admin/assets/js/check-selected-row.js' %}"></script>
-    <script src="{% static 'dashboard/admin/assets/js/dropdown.js' %}"></script>
-    <script src="{% static 'dashboard/admin/assets/js/sidebar-mini.js' %}"></script>
-    <script src="{% static 'dashboard/admin/assets/js/app.js' %}"></script>
-
-    <!-- App Settings (safe to remove) -->
-    <script src="{% static 'dashboard/admin/assets/js/app-settings.js' %}"></script>
-
-    <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
-    <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
-
-    <!-- Flatpickr -->
-    <script src="{% static 'dashboard/admin/assets/vendor/flatpickr/flatpickr.min.js' %} "></script>
-    <script src="{% static 'dashboard/admin/assets/js/flatpickr.js' %} "></script>
-
-    <!-- Global Settings -->
-    <script src="{% static 'dashboard/admin/assets/js/settings.js' %} "></script>
-
-    <!-- Select2 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-
-    <!-- Sweet Alert -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8/dist/sweetalert2.min.js"></script>
-
-    <!-- Datatables -->
-    <script type="text/javascript" src="{% static 'dashboard/admin/assets/js/datatables.min.js' %}"></script>
-
-
-    <script>
-        // Sweet alert
-        {% for message in messages %}
-        {% if message.level == 20 %}
-            var swal_type = 'info';	
-        {% elif message.level == 25 %}
-            var swal_type = 'success';			
-        {% elif message.level == 30 %}
-            var swal_type = 'warning';		
-        {% elif message.level == 40 %}
-            var swal_type = 'error';	
-        {% endif %}	
-
-        Swal.fire({
-            position: 'top-end',
-            type: swal_type,
-            title: '{{ message }}',
-            showConfirmButton: false,
-            timer: 2000,
-        })
-        {% endfor %}
-    </script>
-
-    <script>
-        // datetimepicker
-        $(".datetimepicker").flatpickr({
-            dateFormat: "Y-m-d H:i",
-            enableTime: true,
-            allowInput: true,
-        });
-        $(".datepicker").flatpickr({
-            dateFormat: "Y-m-d",
-            enableTime: false,
-            allowInput: true,
-        });
-        $(".timepicker").flatpickr({
-            dateFormat: "H:i",
-            enableTime: true,
-            noCalendar: true,
-            allowInput: true,
-        });
-
-        // initialize datatable
-        $('.basic-datatable').DataTable({
-            dom: '<"row"<"col-lg-6"l><"col-lg-6"f>><"table-responsive"t>p',
-            "pageLength": -1,
-            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-            "search": {
-                "search": ""
-            },
-            initComplete: function() {
-                $(this.api().table().container()).find('input').parent().wrap('<form>').parent().attr('autocomplete', 'off');
-            }
-        });
-
-        // init select2
+      // init select2
         $(".select2").select2({ 
             width: '100%',
         });
-
-        // delete link
-		$('body').on('click', '.delete-link', function (e) {
-			e.preventDefault();
-			Swal.fire({
-				title: 'Are you sure?',
-				text: "You won't be able to revert this!",
-				type: 'warning',
-				showCancelButton: true,
-				confirmButtonColor: '#3085d6',
-				cancelButtonColor: '#d33',
-				confirmButtonText: 'Yes, delete it!'
-			}).then((result) => {
-				if (result.value) {
-					window.location.href = $(this).attr('href');
-				}
-			})
-		});
-
-    </script>
-
-
-
-    {% block script %}
-    {% endblock %}
-
+   </script>
 </body>
-
 </html>
